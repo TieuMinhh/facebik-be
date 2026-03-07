@@ -1,2 +1,3 @@
 - JWT Auth
 - Models
+- Profile
