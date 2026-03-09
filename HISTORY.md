@@ -1,3 +1,4 @@
 - JWT Auth
 - Models
 - Profile
+- Feed API
