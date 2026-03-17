@@ -5,3 +5,4 @@
 - Perfo
 - Social
 - Notify
+- Chat
