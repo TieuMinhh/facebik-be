@@ -6,3 +6,4 @@
 - Social
 - Notify
 - Chat
+- Docs
