@@ -61,10 +61,12 @@ class AuthService {
     const refreshToken = generateRefreshToken(userId);
 
     // Save refresh token in HttpOnly Cookie
+    const isProduction = env.nodeEnv === 'production';
     res.cookie('refresh_token', refreshToken, {
       httpOnly: true,
-      secure: env.nodeEnv === 'production', // true if HTTPS
-      sameSite: 'lax',
+      secure: isProduction, // Phải là true nếu dùng SameSite=None
+      sameSite: isProduction ? 'none' : 'lax', // 'none' cho phép gửi chéo domain giữa Vercel/Render
+      path: '/',
       maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
     });
 

@@ -34,10 +34,12 @@ class AuthController {
 
   public async logout(req: Request, res: Response) {
     // Xóa cookie
+    const isProduction = env.nodeEnv === 'production';
     res.clearCookie('refresh_token', {
       httpOnly: true,
-      secure: env.nodeEnv === 'production',
-      sameSite: 'lax',
+      secure: isProduction,
+      sameSite: isProduction ? 'none' : 'lax',
+      path: '/',
     });
 
     res.status(StatusCodes.OK).json({ success: true, message: 'Đăng xuất thành công' });
