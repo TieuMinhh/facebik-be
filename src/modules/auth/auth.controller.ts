@@ -35,6 +35,16 @@ class AuthController {
   public async logout(req: Request, res: Response) {
     // Xóa cookie
     const isProduction = env.nodeEnv === 'production';
+    
+    // Clear the new camelCase cookie
+    res.clearCookie('refreshToken', {
+      httpOnly: true,
+      secure: isProduction,
+      sameSite: isProduction ? 'none' : 'lax',
+      path: '/',
+    });
+
+    // Also clear the old snake_case cookie for cleanup
     res.clearCookie('refresh_token', {
       httpOnly: true,
       secure: isProduction,
@@ -46,7 +56,7 @@ class AuthController {
   }
 
   public async refresh(req: Request, res: Response) {
-    const refreshToken = req.cookies.refresh_token;
+    const refreshToken = req.cookies.refreshToken || req.cookies.refresh_token;
     
     // Auth service xử lý logic cấp accessToken
     const tokens = await authService.refreshToken(refreshToken, res);

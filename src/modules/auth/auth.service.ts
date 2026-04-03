@@ -62,7 +62,7 @@ class AuthService {
 
     // Save refresh token in HttpOnly Cookie
     const isProduction = env.nodeEnv === 'production';
-    res.cookie('refresh_token', refreshToken, {
+    res.cookie('refreshToken', refreshToken, {
       httpOnly: true,
       secure: isProduction, // Phải là true nếu dùng SameSite=None
       sameSite: isProduction ? 'none' : 'lax', // 'none' cho phép gửi chéo domain giữa Vercel/Render
